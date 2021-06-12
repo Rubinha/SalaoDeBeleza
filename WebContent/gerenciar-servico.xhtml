@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	  		 xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  		 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  		 xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  		 xmlns:p="http://primefaces.org/ui"
+	  		 template="template.xhtml">
+	  		 
+	<h:form id="frm">
+		<p:messages autoUpdate="true" showDetail="true"></p:messages>
+		
+		<p:fieldset legend="Objetos">
+			<p:toolbar >
+				<p:toolbarGroup align="left">
+					<p:commandButton value="Novo" action="#{servicoBean.novo()}" update="@form"></p:commandButton>
+					<p:commandButton value="Salvar" action="#{servicoBean.salvar()}" disabled="#{servicoBean.busca == true}" update="@form"></p:commandButton>
+					<p:commandButton value="Buscar" action="#{servicoBean.buscar()}" update="@form" immediate="true"></p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panelGrid columns="2" rendered="#{servicoBean.busca == false}">
+				<h:outputLabel value="Nome do Funcionario"></h:outputLabel>
+				<p:inputText value="#{servicoBean.nome}" required="true" label="Nome do Funcionario"></p:inputText>
+				
+				<h:outputLabel value="Tipo de Serviço"></h:outputLabel>
+				<p:inputText value="#{servicoBean.servico.tipoServico}" required="true" label="Tipo de Serviço"></p:inputText>
+				
+				<h:outputLabel value="Valor Serviço"></h:outputLabel>
+				<p:inputText value="#{servicoBean.servico.valorServico}" required="true" label="Valor Serviço"></p:inputText>
+				
+			</p:panelGrid>
+			<br/>
+			<p:dataTable value="#{servicoBean.lstServico}" var="servico" rendered="#{servicoBean.busca == true}">
+				<p:column>
+					<p:commandButton value="editar" action="#{servicoBean.editar(servico)}" update="@form"></p:commandButton>
+					<p:commandButton value="deletar" action="#{servicoBean.deletar(servico)}" update="@form"></p:commandButton>
+				</p:column>
+				<p:column headerText="Funcionario Responsavel" sortBy="#{servico.funcionario.nome}">
+					<h:outputText value="#{servico.funcionario.nome}"></h:outputText>
+				</p:column>
+				<p:column headerText="Tipo Servico" sortBy="#{servico.tipoServico}">
+					<h:outputText value="#{servico.tipoServico}"></h:outputText>
+				</p:column>
+				<p:column headerText="Valor Servico" sortBy="#{servico.valorServico}">
+					<h:outputText value="#{servico.valorServico}"></h:outputText>
+				</p:column>
+			</p:dataTable>	
+		</p:fieldset>
+	</h:form>
+</ui:decorate>

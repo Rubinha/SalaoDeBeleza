@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	 		 xmlns:h="http://xmlns.jcp.org/jsf/html"
+	 		 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 		 template="template.xhtml"
+	 		 xmlns:p="http://primefaces.org/ui">
+	
+		<h1>Bem vindo ao Sistema Salão</h1>
+		
+		<h:form>
+			<p:commandButton value="Mudar para Inserir" update="@form"  action="#{salaoBean.mudarParaInserir}"></p:commandButton>
+			<p:commandButton value="Mudar para Editar" update="@form"  action="#{salaoBean.mudarParaEditar}"></p:commandButton>
+			<p:commandButton value="Mudar para Buscar" update="@form"  action="#{salaoBean.mudarParaBuscar}"></p:commandButton>
+			<br/>
+			<h:outputText value="Inserir" rendered="#{salaoBean.inserir}"></h:outputText>
+			<h:outputText value="Editar" rendered="#{salaoBean.editar}"></h:outputText>
+			<h:outputText value="Buscar" rendered="#{salaoBean.buscar}"></h:outputText>
+		</h:form>
+		
+</ui:decorate>

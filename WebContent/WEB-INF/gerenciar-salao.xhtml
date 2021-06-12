@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	  		 xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  		 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  		 xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  		 xmlns:p="http://primefaces.org/ui"
+	  		 template="template.xhtml">
+	  		 
+	<h:form id="frm">
+		<p:messages autoUpdate="true" showDetail="true"></p:messages>
+		
+		<p:fieldset legend="Objetos">
+			<p:toolbar >
+				<p:toolbarGroup align="left">
+					<p:commandButton value="Novo" action="#{salaoBean.novo()}" update="@form"></p:commandButton>
+					<p:commandButton value="Salvar" action="#{salaoBean.salvar()}" disabled="#{salaoBean.busca == true}" update="@form"></p:commandButton>
+					<p:commandButton value="Buscar" action="#{salaoBean.buscar()}" update="@form"></p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panelGrid columns="2" rendered="#{salaoBean.busca == false}">
+				<h:outputLabel value="modelo"></h:outputLabel>
+				<p:inputText value="#{salaoBean.carro.modelo}"></p:inputText>
+				
+				<h:outputLabel value="fabricante"></h:outputLabel>
+				<p:inputText value="#{salaoBean.carro.fabricante}"></p:inputText>
+				
+				<h:outputLabel value="cor"></h:outputLabel>
+				<p:inputText value="#{salaoBean.carro.cor}"></p:inputText>
+				
+				<h:outputLabel value="ano"></h:outputLabel>
+				<p:inputMask mask="9999" value="#{salaoBean.carro.ano}"></p:inputMask>		
+			</p:panelGrid>
+			<br/>
+			<p:dataTable value="#{salaoBean.lstCarros}" var="carro" rendered="#{salaoBean.busca == true}">
+				<p:column>
+					<p:commandButton value="editar" action="#{salaoBean.editar(carro)}" update="@form"></p:commandButton>
+					<p:commandButton value="deletar" action="#{salaoBean.deletar(carro)}" update="@form"></p:commandButton>
+				</p:column>
+				<p:column headerText="modelo" sortBy="#{carro.modelo}">
+					<h:outputText value="#{carro.modelo}"></h:outputText>
+				</p:column>
+				<p:column headerText="fabricante" sortBy="#{carro.fabricante}">
+					<h:outputText value="#{carro.fabricante}"></h:outputText>
+				</p:column>
+				<p:column headerText="cor" sortBy="#{carro.cor}">
+					<h:outputText value="#{carro.cor}"></h:outputText>
+				</p:column>
+				<p:column headerText="ano" sortBy="#{carro.ano}">
+					<h:outputText value="#{carro.ano}"></h:outputText>
+				</p:column>
+			</p:dataTable>	
+		</p:fieldset>
+	</h:form>
+</ui:decorate>
